@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  title: MyString
+  document1: MyString
+  document2: MyString
+  document3: MyString
+  document4: MyString
+  meeting_id: MyString
+
+two:
+  name: MyString
+  title: MyString
+  document1: MyString
+  document2: MyString
+  document3: MyString
+  document4: MyString
+  meeting_id: MyString

@@ -1,0 +1,32 @@
+<%= form_with(model: atendee, local: true) do |form| %>
+<% if atendee.errors.any? %>
+<div class="row" id="error_explanation">
+      <h2><%= pluralize(atendee.errors.count, "error") %> prohibited this atendee from being saved:</h2>
+</div>
+<ul>
+  <% atendee.errors.full_messages.each do |message| %>
+  <li><%=  message%></li>
+  <% end %>
+</ul>
+<% end %>
+
+<div class="card-body">
+  <div class="form-group">
+    <%= form.label :出席者名 %></br>
+    <%= fields_for @users do |u| %>
+    <%= form.collection_select :name, @users.all, :id, :view_name_grade, :include_blank => true %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :会議名 %>
+    <%= fields_for @meetings do |m| %>
+      <%= form.collection_select :meeting_id, @meetings.all, :id, :view_title_times, :include_blank => true %>
+    <% end %>
+  </div>
+
+  <div class="row justify-content-center">
+    <%= form.submit "登録", class:"btn btn-neutral btn-lg" %>
+  </div>
+<% end %>
+</div>

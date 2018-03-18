@@ -1,0 +1,33 @@
+
+<div class = 'body'>
+<div class = 'title'>
+<h1>出席者情報</h1>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>出席者名（回数）</th>
+      <th>会議名（回数）</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @atendees.each do |atendee| %>
+      <tr>
+      <td><%= @users.with_deleted.find(atendee.name).name %>(<%= @users.with_deleted.find(atendee.name).grade %>)</td>
+        <% atendee.meeting_id %>
+        <td><%= @meetings.with_deleted.find(atendee.meeting_id).title%>(<%= @meetings.with_deleted.find(atendee.meeting_id).times %>)</td>
+        <%= @ans_title %>
+        <td><%= link_to 'Show', atendee %></td>
+        <td><%= link_to 'Edit', edit_atendee_path(atendee) %></td>
+        <td><%= link_to 'Destroy', atendee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </body>
+</table>
+
+
+<%= link_to '出席者登録ページ', new_atendee_path %>
+</div>

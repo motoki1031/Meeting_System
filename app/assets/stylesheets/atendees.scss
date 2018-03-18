@@ -1,0 +1,23 @@
+// Place all the styles related to the atendees controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.body {
+     background: #eeeeee;
+}
+
+.title{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #ffffff;
+    background: #00cc00;
+    border-bottom: solid 6px #aac5de;
+    border-radius: 9px;
+}
+.titile p {
+    margin: 0; 
+    padding: 0;
+}
+.field {
+       color: #000000;
+}

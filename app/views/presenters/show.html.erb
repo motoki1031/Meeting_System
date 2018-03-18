@@ -1,0 +1,31 @@
+<div class = 'body'>
+<div class = 'title'>
+  <h1>発表者情報</h1>
+  </div>
+<p>
+  <strong>発表者:</strong>
+  <% @presenter.name %>
+  <%= @users.with_deleted.find(@presenter.name).name%>(<%= @users.with_deleted.find(@presenter.name).grade%>)
+</p>
+
+<p>
+  <strong>発表題目:</strong>
+  <%= @presenter.title %>
+</p>
+
+<p>
+  <strong>会議名と回数:</strong>
+  <% @presenter.meeting_id %>
+  <%= @meetings.where(id: @presenter.meeting_id).select(:title).first.title%>(<%= @meetings.where(id: @presenter.meeting_id).select(:times).first.times%>)
+</p>
+
+<p>
+  <strong>Filepath:</strong>
+  <%= @presenter.filepath %>
+  <%= link_to 'Download',download_pdf_path(@presenter), :class => 'bin btn-default btn-xs' %>
+</p>
+
+
+<%= link_to 'Edit', edit_presenter_path(@presenter) %> |
+<%= link_to 'Back', tops_path %>
+</body>

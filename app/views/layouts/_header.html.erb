@@ -1,0 +1,43 @@
+<header>
+<nav class="navbar navbar-expand-lg bg-primary">
+  <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-bar"></span>
+    <span class="navbar-toggler-bar"></span>
+    <span class="navbar-toggler-bar"></span>
+  </button>
+
+  <%= link_to root_path, class:"navbar-brand" do %>
+    <h3 class="sys-name">横山研究室会議情報管理システム</h3>
+  <% end %>
+
+  <div class="collapse navbar-collapse" id="navbar-menu">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+	<%= link_to new_meeting_path, class:"nav-link" do %>
+	  <i class="nc-icon nc-single-copy-04" aria-hidden="true"></i>会議登録
+	<% end %>
+      </li>
+      <li class="nav-item">
+	<%= link_to new_presenter_path, class:"nav-link" do %>
+	  <i class="nc-icon nc-circle-10" aria-hidden="true"></i>発表者登録
+	<% end %>
+      </li>
+      <li class="nav-item">
+	<%= link_to new_atendee_path, class:"nav-link" do %>
+	  <i class="nc-icon nc-circle-10" aria-hidden="true"></i>出席者登録
+	<% end %>
+      </li>
+      <li class="nav-item">
+	<%= link_to edit_user_registration_path, class:"nav-link" do %>
+	  <i class="nc-icon nc-single-02" aria-hidden="true"></i>ユーザページ
+	<% end %>
+      </li>
+      <li class="nav-item">
+	<%= link_to destroy_user_session_path, class:"nav-link" do %>
+	  <i class="nc-icon nc-user-run" aria-hidden="true"></i>ログアウト
+	<% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>

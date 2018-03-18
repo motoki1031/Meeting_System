@@ -1,0 +1,38 @@
+<div class = 'body'>
+
+
+<div class = 'title'>
+<h1>発表者情報</h1>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>出席者</th>
+      <th>発表題目</th>
+      <th>会議名と回数</th>
+      <th>ファイル名</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @presenters.each do |presenter| %>
+      <tr>
+      <th><%= @users.with_deleted.find(presenter.name).name%>(<%= @users.with_deleted.find(presenter.name).grade%>)</th>
+        <td><%= presenter.title %></td>
+        <td><%= @meetings.with_deleted.where(id: presenter.meeting_id).select(:title).first.title%>(<%= @meetings.with_deleted.where(id: presenter.meeting_id).select(:times).first.times%>)</td>
+        <td><%= presenter.filepath %></td>
+        <td><%= link_to 'Show', presenter %></td>
+        <td><%= link_to 'Edit', edit_presenter_path(presenter) %></td>
+        <td><%= link_to 'Destroy', presenter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Download',download_pdf_path(presenter), :class => 'bin btn-default btn-xs' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to '発表者情報登録ページ', new_presenter_path %>
+
+</div>

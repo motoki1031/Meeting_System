@@ -1,0 +1,16 @@
+<div class="row justify-content-center">
+  <div class="col-lg-auto col-md-auto ml-auto mr-auto">
+    <div class="card card-register bg-info rounded mx-auto">
+      <div class="text-center">
+	<h2>出席者情報編集</h2>
+      </div>
+      <%= render 'form', atendee: @atendee %>
+      <div class="row justify-content-end">
+	<%= link_to 'Show', @atendee %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-end">
+  <%= link_to 'Back', tops_path %>
+</div>

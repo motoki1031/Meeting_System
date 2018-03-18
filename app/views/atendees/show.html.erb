@@ -1,0 +1,19 @@
+
+<div class = 'body'>
+<div class = 'title'>
+<h1>出席者情報</h1>
+</div>
+<p>
+  <strong>出席者名（学年）:</strong>
+  <% @atendee.name %>
+  <%= @users.with_deleted.where(id: @atendee.name).select(:name).first.name %>(<%= @users.with_deleted.where(id: @atendee.name).select(:grade).first.grade %>)
+</p>
+<p>
+  <strong>会議名（回数）:</strong>
+  <% @atendee.meeting_id %>
+  <%= @meetings.with_deleted.where(id: @atendee.meeting_id).select(:title).first.title%>(<%= @meetings.with_deleted.where(id: @atendee.meeting_id).select(:times).first.times%>)
+</p>
+
+<%= link_to 'edit', edit_atendee_path(@atendee) %> |
+<%= link_to 'Back', tops_path %>
+</div>

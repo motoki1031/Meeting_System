@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+  <div class="content-box col-md-12 col-lg-9 rounded">
+    <div class="row justify-content-center">
+      <div class="content col-md-11 col-lg-11">
+	<div class="row">
+	  <h2><%= @meeting.title %> 第<%= @meeting.times %>回</h2>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">会議種別:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.category %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">場所:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.room %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">備考:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.remarks %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">開始日時:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.started_at.strftime('%Y年%m月%d日 %H:%M') %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">終了日時:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.closed_at.strftime('%Y年%m月%d日 %H:%M') %></div>
+	</div>
+	<% count = 0 %>
+	<% @presenters.each do |presenters_obj| %>
+	<% count+=1 %>
+	<div class="row">
+	  <div class="col-md-2 col-lg-2 text-right">発表者<%= count.to_s %>:</div>
+	  <div class="col-md-auto col-lg-auto text-left">
+	    <%= @users.with_deleted.find(presenters_obj.name).name%>
+	    <%= link_to 'Show', presenter_path(presenters_obj), class:"text-white" %>
+	    <%= link_to 'Edit', edit_presenter_path(presenters_obj), class:"text-white" %>
+	    <%= link_to 'Destroy', presenters_obj, method: :delete, data: { confirm: '本当に発表者を削除しますか？' }, class:"text-white" %>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">発表題目:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= presenters_obj.title %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right"></div>
+	  <div class="col-md-auto col-lg-auto text-left">
+	    <%= presenters_obj.filepath %>
+	  </div>
+	  <i class="nc-icon nc-cloud-download-93 icon-neutral" aria-hidden="true"></i>
+	  <%= link_to 'Download',download_pdf_path(presenters_obj), class:"text-white" %>
+	</div>
+	<% end %>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">出席者:</div>
+	  <% @atendess.each do |atendess_obj| %>
+	  <div class="col-md-auto col-lg-auto text-left">
+	    <%= @users.with_deleted.find(atendess_obj.name).name %>
+	    <%= link_to 'Show', atendee_path(atendess_obj), class:"text-white" %>
+	    <%= link_to 'Edit', edit_atendee_path(atendess_obj), class:"text-white" %>
+	    <%= link_to 'Destroy', atendess_obj, method: :delete, data: { confirm: '本当に出席者を削除しますか？' }, class:"text-white" %>
+	  </div>
+	  <% end %>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">登録日時:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.created_at %></div>
+	</div>
+	<div class="row">
+	  <div class="col-md-3 col-lg-2 text-right">更新日時:</div>
+	  <div class="col-md-auto col-lg-auto text-left"><%= @meeting.updated_at %></div>
+	</div>
+	<div class="row justify-content-end">
+	  <%= link_to '会議編集', edit_meeting_path(@meeting), class:"btn btn-neutral btn-link" %>
+	  <%= link_to '会議削除', @meeting, method: :delete, data: { confirm: '本当に会議を削除しますか？' }, class:"btn btn-neutral btn-link" %>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-end">
+  <%= link_to 'Back', tops_path %>
+</div>

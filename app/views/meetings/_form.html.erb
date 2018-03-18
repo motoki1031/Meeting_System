@@ -1,0 +1,55 @@
+<%= form_with(model:meeting,local: true) do |form| %>
+<% if meeting.errors.any? %>
+<div class="row" id="error_explanation">
+  <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+</div>
+<ul>
+  <% meeting.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= form_for(@meeting) do |meeting| %>
+<div class="card-body">
+  <div class="form-group">
+    <%= meeting.label :"会議名" %>
+    <%= meeting.text_field :title, id: :meeting_title, class:"form-control form-control-lg rounded" %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"回数" %>
+    <%= meeting.number_field :times,min:1, max:999999999, id: :meeting_times, class:"form-control form-control-lg rounded" %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"会議種別" %>
+    <%= meeting.text_field :category, id: :meeting_category, class:"form-control form-control-lg rounded" %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"場所" %>
+    <%= meeting.text_field :room, id: :meeting_room, class:"form-control form-control-lg rounded" %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"備考" %>
+    <%= meeting.text_field :remarks, id: :meeting_room, class:"form-control form-control-lg rounded" %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"開始日時" %></br>
+    <%= meeting.datetime_select :started_at, use_month_numbers: true, date_separator: '/' %>
+  </div>
+
+  <div class="form-group">
+    <%= meeting.label :"終了日時" %></br>
+    <%= meeting.datetime_select :closed_at, use_month_numbers: true, date_separator: '/' %>
+  </div>
+
+  <div class="row justify-content-center">
+    <%= meeting.submit "登録", class:"btn btn-neutral btn-lg" %>
+  </div>
+</div>
+<% end %>
+<% end %>

@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+  <div class="content-box col-md-10 col-lg-10">
+    <div class="content col-md-10 col-lg-11">
+      <div class="row">
+  	<h2>会議検索</h2>
+      </div>
+
+      <div class="search-box">
+	<%= search_form_for @q, url: tops_find_path(:q), action: 'find' do |f| %>
+	<div class="row form-group">
+	  <div class="col-md-2 col-lg-2 text-right">
+            <%= f.label :title_cont, '会議名' %>
+	  </div>
+          <%= f.search_field :title_cont, class:"col-lg-7 form-control form-control-lg rounded", maxlength:20 %>
+	</div>
+
+	<div class="row form-group">
+	  <div class="col-md-2 col-lg-2 text-right">
+            <%= f.label :attribution_cont, '会議種別' %>
+	  </div>
+          <%= f.collection_select :category_cont, @select_attribution, :category, :category, :include_blank => true %>
+	</div>
+
+	<div class="row form-group">
+	  <div class="col-md-2 col-lg-2 text-right">
+            <%= f.label :times_eq, '会議回' %>
+	  </div>
+          <%= f.search_field :times_eq, size:4 %>
+	</div>
+
+	<div class="row form-group">
+	  <div class="col-md-2 col-lg-2 text-right">
+            <%= f.label :started_at, '会議日付' %>
+	  </div>
+          <%== sprintf(f.date_select(:started_at_gteq, use_month_numbers: true, include_blank: true, date_separator: '%s'), '年 ', '月 ') + '日' %>〜
+          <%== sprintf(f.date_select(:started_at_lteq, use_month_numbers: true, include_blank: true, date_separator: '%s'), '年 ', '月 ') + '日' %>
+	</div>
+	<% if false %>
+	<div class="row form-group">
+	  <div class="col-md-2 col-lg-2 text-right">
+            <%= f.label :presenter_name_cont, '発表者' %>
+	  </div>
+          <%= f.search_field :presenter_name_cont, class:"form-control form-control-lg rounded" %>
+	</div>
+	<% end %>
+	<div class="row justify-content-center">
+          <%= f.submit '検索', class:"btn btn-neutral" %>
+	</div>
+
+	<% end %>
+      </div>
+
+      <div class="row justify-content-center">
+	<p>条件に一致した会議は<%= @count %>件です</p>
+      </div>
+
+      <% @meetings.each do |obj| %>
+      <div class="meeting">
+	<div class="row">
+          <%= link_to obj.title + ' ' + obj.times.to_s, meeting_path(obj.id), class:"btn btn-neutral btn-link" %>
+	  <%= link_to 'Edit', edit_meeting_path(obj), class:"btn btn-neutral btn-link"  %>
+          <%= link_to 'Destroy', obj, method: :delete, data: { confirm: '本当に会議を削除しますか？' }, class:"btn btn-neutral btn-link" %>
+	</div>
+
+	<div class="row">
+          <div class="item-text">日時：<%= obj.started_at.strftime('%Y年%m月%d日 %H:%M') %></div>
+	</div>
+
+	<div class="row">
+          <div class="item-text">発表者：
+            <% @presenters.each do |presenter_obj| %>
+            <% if obj.id == presenter_obj.meeting_id.to_i then %>
+            <div class="item-text">
+	      <%= @users.with_deleted.find(presenter_obj.name).name %>
+              <%= link_to 'Show', presenter_path(presenter_obj), class:"btn btn-neutral btn-link" %>
+              <%= link_to 'Edit', edit_presenter_path(presenter_obj), class:"btn btn-neutral btn-link" %>
+	      <%= link_to 'Destroy', presenter_obj, method: :delete, data: { confirm: '本当に発表者を削除しますか？' }, class:"btn btn-neutral btn-link" %></div>
+            <% end %>
+            <% end %>
+          </div>
+	</div>
+
+	<div class="row">
+	  <div class="item-text">出席者：
+            <% @atendees.each do |atendee_obj| %>
+            <% if obj.id == atendee_obj.meeting_id.to_i then %>
+            <div class="item-text"><%= @users.with_deleted.find(atendee_obj.name).name%>
+            <%= link_to 'Show', atendee_path(atendee_obj), class:"btn btn-neutral btn-link" %>
+            <%= link_to 'Edit', edit_atendee_path(atendee_obj), class:"btn btn-neutral btn-link" %>
+	    <%= link_to 'Destroy', atendee_obj, method: :delete, data: { confirm: '本当に出席者を削除しますか？' }, class:"btn btn-neutral btn-link" %></div>
+            <% end %>
+            <% end %>
+	  </div>
+	</div>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+  <div><%= paginate @meetings %></div>
+</div>

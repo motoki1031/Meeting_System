@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="content-box">
+    <div class="row">
+      <h1>会議詳細</h1>
+    </div>
+
+    <div class="content">
+      <div class="row">
+	<div>会議名</div>
+	<div><%= @meeting.title %></div>
+      </div>
+
+      <div class="row">
+	<div>回数</div>
+	<div>第<%= @meeting.times %>回</div>
+      </div>
+
+      <div class="row">
+	<div>種別</div>
+	<div><%= @meeting.category %></div>
+      </div>
+
+      <div class="row">
+	<div>開始日時</div>
+	<div><%= @meeting.started_at %></div>
+      </div>
+
+      <div class="row">
+	<div>終了日時</div>
+	<div><%= @meeting.closed_at%></div>
+      </div>
+
+      <div class="row">
+	<div>場所</div>
+	<div><%= @meeting.room %></div>
+      </div>
+
+      <div class="row">
+	<div>出席者</div>
+	<% @atendess.each do |atendess_obj| %>
+	<div><%= @users.with_deleted.find(atendess_obj.name).name %></div>
+	<% end %>
+      </div>
+
+      <div class="row">
+	<div>発表資料</div>
+	<% @presenters.each do |presenter_obj| %>
+	  <div><%= @users.with_deleted.find(presenter_obj.name).name %></div>
+	  <% if presenter_obj.title.present? %>
+	  <div><%= presenter_obj.title %></div>
+	  <% end %>
+	  <% end %>
+      </div>
+      <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
+      <%= link_to 'Back', top_path %>
+    </div>
+  </div>
+</div>

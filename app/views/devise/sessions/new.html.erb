@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+  <div class="col-lg-auto col-md-auto ml-auto mr-auto">
+    <div class="card card-register bg-info rounded">
+      <div class="text-center">
+	<h2>Log in</h2>
+      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="card-body">
+	<div class="form-group">
+	  <%= f.label :username %><br />
+	  <%= f.text_field :username, class:"form-control form-control-lg rounded" %>
+	</div>
+
+	<div class="form-group">
+	  <%= f.label :password %><br />
+	  <%= f.password_field :password, autocomplete: "off", class:"form-control form-control-lg rounded" %>
+	</div>
+	
+	<div class="row justify-content-center">
+	<% if devise_mapping.rememberable? -%>
+	  <%= f.check_box :remember_me %>
+	  <%= f.label :remember_me %>
+	<% end -%>
+	</div>
+
+	<div class="row justify-content-center">
+	  <%= f.submit "Log in", class:"btn btn-neutral btn-lg" %>
+	</div>
+	<% end %>
+
+	<%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
